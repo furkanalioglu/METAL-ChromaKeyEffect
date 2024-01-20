@@ -1,0 +1,403 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9170B6FB2B5BFCBC007AB065 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170B6FA2B5BFCBC007AB065 /* AppDelegate.swift */; };
+		9170B6FD2B5BFCBC007AB065 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170B6FC2B5BFCBC007AB065 /* SceneDelegate.swift */; };
+		9170B6FF2B5BFCBC007AB065 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170B6FE2B5BFCBC007AB065 /* ViewController.swift */; };
+		9170B7022B5BFCBC007AB065 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9170B7002B5BFCBC007AB065 /* Main.storyboard */; };
+		9170B7042B5BFCBE007AB065 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9170B7032B5BFCBE007AB065 /* Assets.xcassets */; };
+		9170B7072B5BFCBE007AB065 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9170B7052B5BFCBE007AB065 /* LaunchScreen.storyboard */; };
+		9170B70F2B5C007C007AB065 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170B70E2B5C007C007AB065 /* DownloadManager.swift */; };
+		9170B7122B5C0671007AB065 /* MetalPetal in Frameworks */ = {isa = PBXBuildFile; productRef = 9170B7112B5C0671007AB065 /* MetalPetal */; };
+		9170B7142B5C0BE0007AB065 /* MetalBlendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170B7132B5C0BE0007AB065 /* MetalBlendManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9170B6F72B5BFCBC007AB065 /* METAL-ChromeKeyEffect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "METAL-ChromeKeyEffect.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9170B6FA2B5BFCBC007AB065 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9170B6FC2B5BFCBC007AB065 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		9170B6FE2B5BFCBC007AB065 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9170B7012B5BFCBC007AB065 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9170B7032B5BFCBE007AB065 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9170B7062B5BFCBE007AB065 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9170B7082B5BFCBE007AB065 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9170B70E2B5C007C007AB065 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
+		9170B7132B5C0BE0007AB065 /* MetalBlendManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalBlendManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9170B6F42B5BFCBC007AB065 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9170B7122B5C0671007AB065 /* MetalPetal in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9170B6EE2B5BFCBC007AB065 = {
+			isa = PBXGroup;
+			children = (
+				9170B6F92B5BFCBC007AB065 /* METAL-ChromeKeyEffect */,
+				9170B6F82B5BFCBC007AB065 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9170B6F82B5BFCBC007AB065 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9170B6F72B5BFCBC007AB065 /* METAL-ChromeKeyEffect.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9170B6F92B5BFCBC007AB065 /* METAL-ChromeKeyEffect */ = {
+			isa = PBXGroup;
+			children = (
+				9170B6FA2B5BFCBC007AB065 /* AppDelegate.swift */,
+				9170B6FC2B5BFCBC007AB065 /* SceneDelegate.swift */,
+				9170B70E2B5C007C007AB065 /* DownloadManager.swift */,
+				9170B6FE2B5BFCBC007AB065 /* ViewController.swift */,
+				9170B7002B5BFCBC007AB065 /* Main.storyboard */,
+				9170B7032B5BFCBE007AB065 /* Assets.xcassets */,
+				9170B7052B5BFCBE007AB065 /* LaunchScreen.storyboard */,
+				9170B7082B5BFCBE007AB065 /* Info.plist */,
+				9170B7132B5C0BE0007AB065 /* MetalBlendManager.swift */,
+			);
+			path = "METAL-ChromeKeyEffect";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9170B6F62B5BFCBC007AB065 /* METAL-ChromeKeyEffect */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9170B70B2B5BFCBE007AB065 /* Build configuration list for PBXNativeTarget "METAL-ChromeKeyEffect" */;
+			buildPhases = (
+				9170B6F32B5BFCBC007AB065 /* Sources */,
+				9170B6F42B5BFCBC007AB065 /* Frameworks */,
+				9170B6F52B5BFCBC007AB065 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "METAL-ChromeKeyEffect";
+			packageProductDependencies = (
+				9170B7112B5C0671007AB065 /* MetalPetal */,
+			);
+			productName = "METAL-ChromeKeyEffect";
+			productReference = 9170B6F72B5BFCBC007AB065 /* METAL-ChromeKeyEffect.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9170B6EF2B5BFCBC007AB065 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					9170B6F62B5BFCBC007AB065 = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 9170B6F22B5BFCBC007AB065 /* Build configuration list for PBXProject "METAL-ChromeKeyEffect" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9170B6EE2B5BFCBC007AB065;
+			packageReferences = (
+				9170B7102B5C0671007AB065 /* XCRemoteSwiftPackageReference "MetalPetal" */,
+			);
+			productRefGroup = 9170B6F82B5BFCBC007AB065 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9170B6F62B5BFCBC007AB065 /* METAL-ChromeKeyEffect */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9170B6F52B5BFCBC007AB065 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9170B7072B5BFCBE007AB065 /* LaunchScreen.storyboard in Resources */,
+				9170B7042B5BFCBE007AB065 /* Assets.xcassets in Resources */,
+				9170B7022B5BFCBC007AB065 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9170B6F32B5BFCBC007AB065 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9170B6FF2B5BFCBC007AB065 /* ViewController.swift in Sources */,
+				9170B6FB2B5BFCBC007AB065 /* AppDelegate.swift in Sources */,
+				9170B6FD2B5BFCBC007AB065 /* SceneDelegate.swift in Sources */,
+				9170B70F2B5C007C007AB065 /* DownloadManager.swift in Sources */,
+				9170B7142B5C0BE0007AB065 /* MetalBlendManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9170B7002B5BFCBC007AB065 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9170B7012B5BFCBC007AB065 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9170B7052B5BFCBE007AB065 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9170B7062B5BFCBE007AB065 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9170B7092B5BFCBE007AB065 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9170B70A2B5BFCBE007AB065 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9170B70C2B5BFCBE007AB065 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G853KP8PLG;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "METAL-ChromeKeyEffect/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.furkanalioglu.METAL-ChromeKeyEffect";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9170B70D2B5BFCBE007AB065 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G853KP8PLG;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "METAL-ChromeKeyEffect/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.furkanalioglu.METAL-ChromeKeyEffect";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9170B6F22B5BFCBC007AB065 /* Build configuration list for PBXProject "METAL-ChromeKeyEffect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9170B7092B5BFCBE007AB065 /* Debug */,
+				9170B70A2B5BFCBE007AB065 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9170B70B2B5BFCBE007AB065 /* Build configuration list for PBXNativeTarget "METAL-ChromeKeyEffect" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9170B70C2B5BFCBE007AB065 /* Debug */,
+				9170B70D2B5BFCBE007AB065 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9170B7102B5C0671007AB065 /* XCRemoteSwiftPackageReference "MetalPetal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MetalPetal/MetalPetal";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.25.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9170B7112B5C0671007AB065 /* MetalPetal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9170B7102B5C0671007AB065 /* XCRemoteSwiftPackageReference "MetalPetal" */;
+			productName = MetalPetal;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 9170B6EF2B5BFCBC007AB065 /* Project object */;
+}
