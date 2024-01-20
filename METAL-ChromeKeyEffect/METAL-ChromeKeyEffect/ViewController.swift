@@ -19,6 +19,8 @@ class ViewController: UIViewController {
     var playerLayer: AVPlayerLayer?
     var videoURL: URL?
     
+    var context: MTIContext?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.downloadVideo()
@@ -34,7 +36,6 @@ class ViewController: UIViewController {
             guard let self else { return }
             if let savedURL = savedURL {
                 self.videoURL = savedURL
-                
             } else if let error = error {
                 print("Error downloading file: \(error)")
             }
@@ -43,17 +44,63 @@ class ViewController: UIViewController {
     
     
     @IBAction func selectBackgroundButtonAction(_ sender: Any) {
-        guard let videoURL = videoURL else { return }
-        self.exportImagesFromVideoWithMetalPetal(url: videoURL) { [weak self] result in
-            switch result {
-            case .success(let images):
-                print("images count is \(images.count)")
-            case .failure(let err):
-                print("Error exporting images: \(err)")
-            }
-        }
+        self.applyChroma()
     }
-
+    
+    private func applyChroma() {
+        do{
+            context = try MTIContext(device: MTLCreateSystemDefaultDevice()!)
+        }catch {
+            print("failed to create context")
+        }
+        
+        guard let backImage = UIImage(named:"backgroundImage")?.cgImage,
+              let context else { return }
+        
+        let backgroundMTI = MTIImage(cgImage: backImage, options: [.SRGB: false], isOpaque: true)
+        guard let videoURL else { return }
+        let asset = AVAsset(url: videoURL)
+        
+        let composition = MTIVideoComposition(asset: asset, context: context, queue: .main) { request in
+            let filter = MTIChromaKeyBlendFilter()
+            filter.inputImage = request.anySourceImage
+            filter.inputBackgroundImage = backgroundMTI
+            filter.thresholdSensitivity = 0.4
+            filter.smoothing = 0.1
+            filter.color = MTIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+            return filter.outputImage!
+        }
+        
+        let playerItem = AVPlayerItem(asset: asset)
+        playerItem.videoComposition = composition.makeAVVideoComposition()
+        
+        self.player = AVPlayer(playerItem: playerItem)
+        playerLayer = AVPlayerLayer(player:player)
+        playerLayer?.frame = videoView.bounds
+        playerLayer?.videoGravity = .resizeAspect
+        videoView.layer.addSublayer(playerLayer!)
+        player?.play()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//    
+//    self.exportImagesFromVideoWithMetalPetal(url: videoURL) { [weak self] result in
+//        switch result {
+//        case .success(let images):
+//            print("images count is \(images.count)")
+//        case .failure(let err):
+//            print("Error exporting images: \(err)")
+//        }
+//    }
     private func animateImages(_ images: [UIImage]) {
         let animationImageView = UIImageView(frame: videoView.bounds)
         videoView.addSubview(animationImageView)
