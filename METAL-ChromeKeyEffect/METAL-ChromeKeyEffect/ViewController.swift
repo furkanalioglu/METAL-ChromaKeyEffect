@@ -58,14 +58,28 @@ class ViewController: UIViewController {
         guard let backImage = image?.cgImage,
               let context else { return }
         
-        let backgroundMTI = MTIImage(cgImage: backImage, options: [.SRGB: false], isOpaque: true)
+        
+        let originalBackgroundMTI = MTIImage(cgImage: backImage, options: [.SRGB: false], isOpaque: true)
+
+        // Resize using MTITransformFilter
+        let targetSize = CGSize(width: 0, height: 0)
+        let scaleX = targetSize.width / originalBackgroundMTI.size.width
+        let scaleY = targetSize.height / originalBackgroundMTI.size.height
+        let scalingTransform = CGAffineTransform(scaleX: scaleX, y: scaleY)
+
+        // Apply scaling using MTITransformFilter
+        let resizeFilter = MTITransformFilter()
+        resizeFilter.inputImage = originalBackgroundMTI
+        resizeFilter.transform = CATransform3DMakeAffineTransform(scalingTransform)
+        guard let resizedBackgroundMTI = resizeFilter.outputImage else { return }
+        
         guard let videoURL else { return }
         let asset = AVAsset(url: videoURL)
         
         let composition = MTIVideoComposition(asset: asset, context: context, queue: .main) { request in
             let filter = MTIChromaKeyBlendFilter()
             filter.inputImage = request.anySourceImage
-            filter.inputBackgroundImage = backgroundMTI
+            filter.inputBackgroundImage = resizedBackgroundMTI
             filter.thresholdSensitivity = 0.4
             filter.smoothing = 0.1
             filter.color = MTIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
@@ -78,7 +92,7 @@ class ViewController: UIViewController {
         self.player = AVPlayer(playerItem: playerItem)
         playerLayer = AVPlayerLayer(player:player)
         playerLayer?.frame = videoView.bounds
-        playerLayer?.videoGravity = .resizeAspectFill
+//        playerLayer?.videoGravity = .resizeAspect
         videoView.layer.addSublayer(playerLayer!)
         player?.play()
     }
