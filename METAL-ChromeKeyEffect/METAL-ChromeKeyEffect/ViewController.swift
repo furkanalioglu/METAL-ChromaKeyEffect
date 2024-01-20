@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ImagePickerManager.shared.delegate = self
         self.downloadVideo()
     }
     
@@ -44,17 +45,17 @@ class ViewController: UIViewController {
     
     
     @IBAction func selectBackgroundButtonAction(_ sender: Any) {
-        self.applyChroma()
+        ImagePickerManager.shared.presentImagePicker(from: self)
     }
     
-    private func applyChroma() {
+    private func applyChroma(with image: UIImage?) {
         do{
             context = try MTIContext(device: MTLCreateSystemDefaultDevice()!)
         }catch {
             print("failed to create context")
         }
         
-        guard let backImage = UIImage(named:"backgroundImage")?.cgImage,
+        guard let backImage = image?.cgImage,
               let context else { return }
         
         let backgroundMTI = MTIImage(cgImage: backImage, options: [.SRGB: false], isOpaque: true)
@@ -77,85 +78,17 @@ class ViewController: UIViewController {
         self.player = AVPlayer(playerItem: playerItem)
         playerLayer = AVPlayerLayer(player:player)
         playerLayer?.frame = videoView.bounds
-        playerLayer?.videoGravity = .resizeAspect
+        playerLayer?.videoGravity = .resizeAspectFill
         videoView.layer.addSublayer(playerLayer!)
         player?.play()
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    
-//    self.exportImagesFromVideoWithMetalPetal(url: videoURL) { [weak self] result in
-//        switch result {
-//        case .success(let images):
-//            print("images count is \(images.count)")
-//        case .failure(let err):
-//            print("Error exporting images: \(err)")
-//        }
-//    }
-    private func animateImages(_ images: [UIImage]) {
-        let animationImageView = UIImageView(frame: videoView.bounds)
-        videoView.addSubview(animationImageView)
-        animationImageView.animationImages = images
-        animationImageView.animationDuration = Double(images.count) / 30 // Assuming 30 frames per second
-        animationImageView.startAnimating()
-    }
-    
-    private func exportImagesFromVideoWithMetalPetal(url: URL, completion: @escaping (Result<[UIImage], Error>) -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
-            let asset = AVAsset(url: url)
-            asset.loadTracks(withMediaType: .video) { tracks, error in
-                guard let videoTrack = tracks?.first else {
-                    DispatchQueue.main.async {
-                        completion(.failure(error ?? NSError(domain: "Failed to load video tracks", code: 0, userInfo: nil)))
-                    }
-                    return
-                }
-
-                do {
-                    let assetReader = try AVAssetReader(asset: asset)
-                    let assetReaderOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: [String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA])
-                    assetReader.add(assetReaderOutput)
-                    assetReader.startReading()
-
-                    var images = [UIImage]()
-                    let context = try MTIContext(device: MTLCreateSystemDefaultDevice()!)
-
-                    while let sampleBuffer = assetReaderOutput.copyNextSampleBuffer(), assetReader.status == .reading {
-                        if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
-                            let mtiImage = MTIImage(cvPixelBuffer: imageBuffer, alphaType: .alphaIsOne)
-                            if let cgImage = try? context.makeCGImage(from: mtiImage) {
-                                let uiImage = UIImage(cgImage: cgImage)
-                                images.append(uiImage)
-                            }
-                        }
-                    }
-
-                    DispatchQueue.main.async {
-                        if assetReader.status == .completed {
-                            completion(.success(images))
-                        } else if assetReader.status == .failed || assetReader.status == .cancelled {
-                            completion(.failure(NSError(domain: "Failed to read all frames", code: 0, userInfo: nil)))
-                        }
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        completion(.failure(error))
-                    }
-                }
-            }
-        }
-    }
-
-
-    
 }
 
+
+extension ViewController : ImagePickerDelegate {
+    func didSelect(image: UIImage?) {
+        guard let image else { return }
+        self.applyChroma(with: image)
+    }
+}
