@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var selectBackgroundButtonOutlet: UIButton!
     @IBOutlet weak var videoView: UIView!
     
+    private var metalContext: MTIContext!
+    
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
     var videoURL: URL?
@@ -20,6 +22,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.downloadVideo()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        playerLayer?.frame = videoView.bounds
     }
     
     private func downloadVideo() {
@@ -34,78 +41,74 @@ class ViewController: UIViewController {
         }
     }
     
+    
     @IBAction func selectBackgroundButtonAction(_ sender: Any) {
         guard let videoURL = videoURL else { return }
-            exportImagesFromVideoAndSave(url: videoURL) { result in
-                switch result {
-                case .success(let urls):
-                    print("Images saved at URLs: \(urls)")
-                case .failure(let error):
-                    print("Error exporting images: \(error)")
+        self.exportImagesFromVideoWithMetalPetal(url: videoURL) { [weak self] result in
+            switch result {
+            case .success(let images):
+                print("images count is \(images.count)")
+            case .failure(let err):
+                print("Error exporting images: \(err)")
             }
         }
     }
+
+    private func animateImages(_ images: [UIImage]) {
+        let animationImageView = UIImageView(frame: videoView.bounds)
+        videoView.addSubview(animationImageView)
+        animationImageView.animationImages = images
+        animationImageView.animationDuration = Double(images.count) / 30 // Assuming 30 frames per second
+        animationImageView.startAnimating()
+    }
     
-    private func exportImagesFromVideoAndSave(url: URL, completion: @escaping (Result<[URL], Error>) -> Void) {
-        let asset = AVAsset(url: url)
-        let fileManager = FileManager.default
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+    private func exportImagesFromVideoWithMetalPetal(url: URL, completion: @escaping (Result<[UIImage], Error>) -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            let asset = AVAsset(url: url)
+            asset.loadTracks(withMediaType: .video) { tracks, error in
+                guard let videoTrack = tracks?.first else {
+                    DispatchQueue.main.async {
+                        completion(.failure(error ?? NSError(domain: "Failed to load video tracks", code: 0, userInfo: nil)))
+                    }
+                    return
+                }
 
-        asset.loadTracks(withMediaType: .video) { tracks, error in
-            guard let videoTrack = tracks?.first else {
-                completion(.failure(error ?? NSError(domain: "Failed to load video tracks", code: 0, userInfo: nil)))
-                return
-            }
+                do {
+                    let assetReader = try AVAssetReader(asset: asset)
+                    let assetReaderOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: [String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA])
+                    assetReader.add(assetReaderOutput)
+                    assetReader.startReading()
 
-            do {
-                let assetReader = try AVAssetReader(asset: asset)
-                let assetReaderOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: [String(kCVPixelBufferPixelFormatTypeKey): kCVPixelFormatType_32BGRA])
-                assetReader.add(assetReaderOutput)
-                assetReader.startReading()
+                    var images = [UIImage]()
+                    let context = try MTIContext(device: MTLCreateSystemDefaultDevice()!)
 
-                var outputURLs = [URL]()
-                var frameCount = 0
-
-                while let sampleBuffer = assetReaderOutput.copyNextSampleBuffer(), assetReader.status == .reading {
-                    if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
-                        let ciImage = CIImage(cvImageBuffer: imageBuffer)
-                        let context = CIContext()
-                        if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
-                            let frameURL = documentsURL.appendingPathComponent("frame_\(frameCount).jpg")
-                            if let data = UIImage(cgImage: cgImage).jpegData(compressionQuality: 0.8) {
-                                try data.write(to: frameURL)
-                                outputURLs.append(frameURL)
-                                frameCount += 1
+                    while let sampleBuffer = assetReaderOutput.copyNextSampleBuffer(), assetReader.status == .reading {
+                        if let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
+                            let mtiImage = MTIImage(cvPixelBuffer: imageBuffer, alphaType: .alphaIsOne)
+                            if let cgImage = try? context.makeCGImage(from: mtiImage) {
+                                let uiImage = UIImage(cgImage: cgImage)
+                                images.append(uiImage)
                             }
                         }
                     }
-                }
 
-                if assetReader.status == .completed {
-                    completion(.success(outputURLs))
-                } else if assetReader.status == .failed || assetReader.status == .cancelled {
-                    completion(.failure(NSError(domain: "Failed to read all frames", code: 0, userInfo: nil)))
+                    DispatchQueue.main.async {
+                        if assetReader.status == .completed {
+                            completion(.success(images))
+                        } else if assetReader.status == .failed || assetReader.status == .cancelled {
+                            completion(.failure(NSError(domain: "Failed to read all frames", code: 0, userInfo: nil)))
+                        }
+                    }
+                } catch {
+                    DispatchQueue.main.async {
+                        completion(.failure(error))
+                    }
                 }
-
-            } catch {
-                completion(.failure(error))
             }
         }
     }
 
-    
-    private func exportImagesFromVideo(for asset: AVAsset) -> AVVideoComposition {
-        let composition = AVVideoComposition(asset: asset) { request in
-            request.finish(with: request.sourceImage, context: nil)
-        }
-        return composition
-        
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        playerLayer?.frame = videoView.bounds
-    }
+
     
 }
 

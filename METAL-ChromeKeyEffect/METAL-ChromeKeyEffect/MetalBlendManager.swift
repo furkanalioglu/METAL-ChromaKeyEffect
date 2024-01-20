@@ -31,4 +31,10 @@ class MetalBlendManager {
             }
         }
     }
+    
+    func convertToUIImage(mtiImage: MTIImage) -> UIImage? {
+        let context = try? MTIContext(device: MTLCreateSystemDefaultDevice()!)
+        let cgImage = try? context?.makeCGImage(from: mtiImage)
+        return cgImage != nil ? UIImage(cgImage: cgImage!) : nil
+    }
 }
