@@ -17,6 +17,7 @@
 		9170B7122B5C0671007AB065 /* MetalPetal in Frameworks */ = {isa = PBXBuildFile; productRef = 9170B7112B5C0671007AB065 /* MetalPetal */; };
 		9170B7142B5C0BE0007AB065 /* MetalBlendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170B7132B5C0BE0007AB065 /* MetalBlendManager.swift */; };
 		9170B7162B5C2174007AB065 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170B7152B5C2174007AB065 /* ImagePickerManager.swift */; };
+		9170B7182B5D51D4007AB065 /* ChromaKeyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170B7172B5D51D4007AB065 /* ChromaKeyFilter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		9170B70E2B5C007C007AB065 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		9170B7132B5C0BE0007AB065 /* MetalBlendManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalBlendManager.swift; sourceTree = "<group>"; };
 		9170B7152B5C2174007AB065 /* ImagePickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerManager.swift; sourceTree = "<group>"; };
+		9170B7172B5D51D4007AB065 /* ChromaKeyFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromaKeyFilter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				9170B7082B5BFCBE007AB065 /* Info.plist */,
 				9170B7132B5C0BE0007AB065 /* MetalBlendManager.swift */,
 				9170B7152B5C2174007AB065 /* ImagePickerManager.swift */,
+				9170B7172B5D51D4007AB065 /* ChromaKeyFilter.swift */,
 			);
 			path = "METAL-ChromeKeyEffect";
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9170B6FF2B5BFCBC007AB065 /* ViewController.swift in Sources */,
+				9170B7182B5D51D4007AB065 /* ChromaKeyFilter.swift in Sources */,
 				9170B6FB2B5BFCBC007AB065 /* AppDelegate.swift in Sources */,
 				9170B6FD2B5BFCBC007AB065 /* SceneDelegate.swift in Sources */,
 				9170B70F2B5C007C007AB065 /* DownloadManager.swift in Sources */,

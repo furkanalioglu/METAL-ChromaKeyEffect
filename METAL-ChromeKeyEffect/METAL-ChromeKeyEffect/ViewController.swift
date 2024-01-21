@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var videoView: UIView!
     
     private var metalContext: MTIContext!
+    private let downloadPath : String = "https://metalpetal-awsbucket.s3.eu-north-1.amazonaws.com/chromaTiger.mp4"
     
     var player: AVPlayer?
     var playerLayer: AVPlayerLayer?
@@ -23,6 +24,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
         ImagePickerManager.shared.delegate = self
         self.downloadVideo()
     }
@@ -33,7 +35,7 @@ class ViewController: UIViewController {
     }
     
     private func downloadVideo() {
-        DownloadManager.shared.downloadFile(from: "https://metalpetal-awsbucket.s3.eu-north-1.amazonaws.com/chromaTiger.mp4") { [weak self] savedURL, error in
+        DownloadManager.shared.downloadFile(from: downloadPath) { [weak self] savedURL, error in
             guard let self else { return }
             if let savedURL = savedURL {
                 self.videoURL = savedURL
@@ -43,66 +45,25 @@ class ViewController: UIViewController {
         }
     }
     
-    
     @IBAction func selectBackgroundButtonAction(_ sender: Any) {
         ImagePickerManager.shared.presentImagePicker(from: self)
     }
     
-    private func applyChroma(with image: UIImage?) {
-        do{
-            context = try MTIContext(device: MTLCreateSystemDefaultDevice()!)
-        }catch {
-            print("failed to create context")
-        }
-        
-        guard let backImage = image?.cgImage,
-              let context else { return }
-        
-        
-        let originalBackgroundMTI = MTIImage(cgImage: backImage, options: [.SRGB: false], isOpaque: true)
-
-        // Resize using MTITransformFilter
-        let targetSize = CGSize(width: 0, height: 0)
-        let scaleX = targetSize.width / originalBackgroundMTI.size.width
-        let scaleY = targetSize.height / originalBackgroundMTI.size.height
-        let scalingTransform = CGAffineTransform(scaleX: scaleX, y: scaleY)
-
-        // Apply scaling using MTITransformFilter
-        let resizeFilter = MTITransformFilter()
-        resizeFilter.inputImage = originalBackgroundMTI
-        resizeFilter.transform = CATransform3DMakeAffineTransform(scalingTransform)
-        guard let resizedBackgroundMTI = resizeFilter.outputImage else { return }
-        
+    func applyChromaKeyEffect(to image: UIImage) {
         guard let videoURL else { return }
-        let asset = AVAsset(url: videoURL)
-        
-        let composition = MTIVideoComposition(asset: asset, context: context, queue: .main) { request in
-            let filter = MTIChromaKeyBlendFilter()
-            filter.inputImage = request.anySourceImage
-            filter.inputBackgroundImage = resizedBackgroundMTI
-            filter.thresholdSensitivity = 0.4
-            filter.smoothing = 0.1
-            filter.color = MTIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
-            return filter.outputImage!
-        }
-        
-        let playerItem = AVPlayerItem(asset: asset)
-        playerItem.videoComposition = composition.makeAVVideoComposition()
-        
-        self.player = AVPlayer(playerItem: playerItem)
-        playerLayer = AVPlayerLayer(player:player)
-        playerLayer?.frame = videoView.bounds
-//        playerLayer?.videoGravity = .resizeAspect
-        videoView.layer.addSublayer(playerLayer!)
-        player?.play()
+        ChromaKeyFilter.shared.applyChroma(with: image, from: videoURL, to: self.videoView)
     }
-    
+     
+    @objc private func playerDidFinishPlaying() {
+        print("dispose 1")
+        ChromaKeyFilter.shared.dispose()
+    }
 }
 
 
 extension ViewController : ImagePickerDelegate {
     func didSelect(image: UIImage?) {
         guard let image else { return }
-        self.applyChroma(with: image)
+        self.applyChromaKeyEffect(to: image)
     }
 }
