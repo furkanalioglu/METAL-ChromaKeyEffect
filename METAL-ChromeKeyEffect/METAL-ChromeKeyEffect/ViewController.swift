@@ -40,7 +40,7 @@ class ViewController: UIViewController {
             if let savedURL = savedURL {
                 self.videoURL = savedURL
             } else if let error = error {
-                print("Error downloading file: \(error)")
+                debugPrint("Error downloading file: \(error)")
             }
         }
     }
@@ -55,7 +55,6 @@ class ViewController: UIViewController {
     }
      
     @objc private func playerDidFinishPlaying() {
-        print("dispose 1")
         ChromaKeyFilter.shared.dispose()
     }
 }
