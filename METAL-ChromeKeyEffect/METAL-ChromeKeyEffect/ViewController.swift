@@ -51,10 +51,14 @@ class ViewController: UIViewController {
     
     func applyChromaKeyEffect(to image: UIImage) {
         guard let videoURL else { return }
+        self.selectBackgroundButtonOutlet.isEnabled = false
+        self.selectBackgroundButtonOutlet.layer.opacity = 0.1
         ChromaKeyFilter.shared.applyChroma(with: image, from: videoURL, to: self.videoView)
     }
      
     @objc private func playerDidFinishPlaying() {
+        self.selectBackgroundButtonOutlet.isEnabled = true
+        self.selectBackgroundButtonOutlet.layer.opacity = 1
         ChromaKeyFilter.shared.dispose()
     }
 }
