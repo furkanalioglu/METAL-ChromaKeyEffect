@@ -15,7 +15,6 @@ protocol ImagePickerDelegate : AnyObject {
 class ImagePickerManager:NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     static let shared = ImagePickerManager()
     
-    
     private var picker = UIImagePickerController()
     weak var delegate: ImagePickerDelegate?
     private weak var presentingViewController: UIViewController?

@@ -22,11 +22,10 @@ class DownloadManager {
         let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let destinationURL = documentsPath.appendingPathComponent(url.lastPathComponent)
 
-        // Check if file already exists at destinationURL
         if FileManager.default.fileExists(atPath: destinationURL.path) {
-            print("File already exists at location \(destinationURL)")
+            debugPrint("File already exists at location \(destinationURL)")
             DispatchQueue.main.async { [weak self] in
-                guard let self else { return }
+                guard self != nil else { return }
                 completion(destinationURL, nil)
             }
             return
@@ -36,17 +35,20 @@ class DownloadManager {
             if let localURL = localURL {
                 do {
                     try FileManager.default.moveItem(at: localURL, to: destinationURL)
-                    print("File saved to location \(destinationURL)")
-                    DispatchQueue.main.async {
+                    debugPrint("File saved to location \(destinationURL)")
+                    DispatchQueue.main.async { [weak self] in
+                        guard self != nil else { return }
                         completion(destinationURL, nil)
                     }
                 } catch {
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [weak self] in
+                        guard self != nil else { return }
                         completion(nil, error)
                     }
                 }
             } else {
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
+                    guard self != nil else { return }
                     completion(nil, error)
                 }
             }
